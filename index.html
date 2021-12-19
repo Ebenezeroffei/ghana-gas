@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="Designed By" content="Stark Tech Solution">
+    <meta name="Phone Number" content="+233 271 815 776">
+    <meta name="Email" content="starktechsolution8@gmail.com">
+    <title>Ghana Gas</title>
+    <link rel="stylesheet" href="static/bootstrap.min.css">
+    <link rel="icon" href="static/images/favicon.gif" type="image/png"/>
+    <style>
+        ::-webkit-scrollbar{
+            width: 10px;
+        }
+        ::-webkit-scrollbar-thumb{
+            background-color: gray;
+        }
+        ::-webkit-scrollbar-track{
+            background-color: rgba(0,0,0,.1);
+        }
+        html {
+            scroll-behavior:smooth;
+        }
+
+        /* Navbar */
+        #navbar{
+            border-bottom: thin solid rgba(0,0,0,.125);
+            position: fixed;
+            width: 100%;
+            background-color: white;
+            z-index: 2;
+        }
+        /* #big-screen-navbar-items{} */
+        #big-screen-navbar-items > li{
+            display: inline-block;
+            padding: 0 20px;
+            text-align: center;
+        }
+        #big-screen-navbar-items > li > a,#big-screen-navbar-items > li > span{
+            text-decoration: none;
+            color: #222;
+            font-weight: 500;
+            transition: color .2s ease-in-out;
+            cursor: pointer;
+        }
+        #big-screen-navbar-items > li:hover > a, #big-screen-navbar-items > li:hover > span{
+            color: red;
+        }
+        /* Sub Menu */
+        .sub-menu-container{
+            /* background-color: red; */
+            position: relative;
+        }
+        .sub-menu{
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            width: 200px;
+            right: 0;
+            top: 82px;
+            list-style: none;
+            border: thin solid rgba(0,0,0,.125);
+            border-top: none;
+            margin: 0%;
+            padding: 10px;
+            border-radius: 0 0 5px 5px;
+            transition: all .3s ease-in-out;
+            background-color: white;
+            z-index: 2;
+        }
+        .sub-menu > li > a{
+            text-decoration: none;
+            color: #222;
+            font-weight: 500;
+            transition: color .2s ease-in-out;
+        }
+        .sub-menu > li > a:hover{
+            color: #f45a2b;
+        }
+        .sub-menu-container:hover  .sub-menu{
+            opacity: 1;
+            visibility: visible;
+        }
+        /* Hamburger */
+        #hamburger{
+            position: fixed;
+            top: 53px;
+            right: 10px;
+            cursor: pointer;
+            display: none;
+            z-index: 3;
+/*            background: black;*/
+        }
+        #hamburger > p{
+            width: 25px;
+            height: 3px;
+            background: #f45a2b;
+            border-radius: 10px;
+            position: relative;
+            top: 6px;
+            transition: all .3s ease-in-out;
+        }
+        #hamburger > p::before, #hamburger > p::after{
+            display: block;
+            content: '';
+            width: 100%;
+            height: 3px;
+            background: #f45a2b;
+            position: relative;
+            top: -8px;
+            transition: all .3s ease-in-out;
+            
+        }
+        #hamburger > p::after{
+            top: 5px;
+        }
+        #hamburger .open{
+            background: transparent;
+        }
+        #hamburger .open::before{
+            top: 0px;
+            transform: rotate(45deg);
+        }
+        #hamburger .open::after{
+            top: -3px;
+            transform: rotate(135deg);
+        }
+        /* Phone Menu */
+        #phone-menu  ul{
+            list-style: none;
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+        }
+        #phone-menu > ul  li{
+            display: block;
+            text-align: center;
+            border-top: thin solid rgba(0,0,0,.125);
+            width: 100%;
+            padding: 3px 0;
+            cursor: pointer;
+        }
+        #phone-menu > ul  li > a, #phone-menu > ul  li > span{
+            text-decoration: none;
+            font-weight: 500;
+            color: #222;
+            transition: color .2s ease-in-out;
+        }
+        #phone-menu > ul >li:hover > a,#phone-menu > ul > li:hover > span{
+            color: #f45a2b;
+        }
+        /* Phone Sub menu */
+        .phone-sub-menu-container > span::after{
+            content:'' ;
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-right: 2.5px solid;
+            border-top: 2.5px solid;
+            transform: rotate(135deg);
+            /* background-color: red; */
+            position: relative;
+            bottom: 2px;
+            left: 10px;
+            transition: all .3s ease-in-out;
+        }
+        /* .phone-sub-menu-container:hover > span::after{
+            transform: rotate(315deg);
+            bottom: -2px;
+        } */
+        .phone-sub-menu > li:hover > a{
+            color: #f45a2b !important;
+        }
+
+        /* Header */
+        .header{
+            color: #5fb547;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+        .header::before{
+            content: '';
+            display: inline-block;
+            width: 60px;
+            height: 2px;
+            background-color: rgb(54,87,141);
+            position: relative;
+            bottom: 10px;
+            margin: 0 5px;
+        }
+        /* Btn */
+        .btn{
+            margin-top: 10px;
+            padding: 8px 50px;
+            box-shadow: none !important;
+            color: white;
+            transition: all .1s ease-in-out;
+        }
+        .btn-1{
+            border: 2px solid #f45a2b;
+            background-color: #f45a2b;
+        }
+        .btn-1:hover{
+            color: #f45a2b;
+            background-color: white;
+        }
+        .btn-2{
+            border: 2px solid #36578d;
+            background-color: #36578d;
+        }
+        .btn-2:hover{
+            color: #36578d;
+            background-color: white;
+        }
+        
+        /* News */
+        .news{
+            margin-top: 30px;
+        }
+        .news img{
+            width: 100%;
+            height: 180px !important;
+        }
+        .news h4{
+            font-weight: 400;
+            color: #444;
+            margin-bottom: 10px;
+        }
+        .news > .card{
+            cursor: pointer;
+            transition: all .3s ease-in-out;
+            position: relative;
+        }
+        .news .news-date{
+            position: absolute;
+            bottom: 5px;
+        }
+        .news > .card:hover{
+            transform: scale(1.05);
+        }
+        /* Contact Us */
+        #contact-us > div:last-child{
+            margin-top: 60px;
+        }
+        #map{
+            width: 100%;
+            height: 400px;
+        }
+
+        /* Footer */
+        footer{
+            background-color: white;
+            border-top: thin solid rgba(0,0,0,.125);
+            color: #888;
+            padding-top: 30px;
+        }
+        footer .footer-header{
+            color:#222;
+            font-weight: 500;
+            text-align: center;
+            font-size: 20px;
+            margin: auto;
+        }
+        footer  a, footer .row:first-child .col-12 > span{
+            color: #888;
+            display: block;
+            transition: color .2s ease-in-out;
+            text-align: center;
+            padding: 4px 0px;
+        }
+        footer a:hover{
+            color: #f45a2b;
+            text-decoration: none;
+        }
+
+        /* Media Query From 0px- 880px */
+        @media only screen and (max-width:850px){
+            #hamburger{
+                display: block;
+            }
+            #big-screen-navbar-items{
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hamburger Menu -->
+    <div id="hamburger">
+        <p></p>
+    </div>
+    <!-- Nav Bar -->
+    <nav id="navbar">
+        <div class="container-lg">
+            <div class="d-flex justify-content-between align-items-center">
+                <img src="./static/images/logo.png" width="200px" alt="">
+                <ul id="big-screen-navbar-items">
+                    <li><a href="">Home</a></li>
+                    <li><a href="">What We Do</a></li>
+                    <li><a href="">About Us</a></li>
+                    <li><a href="">Contact Us</a></li>
+                    <li class="sub-menu-container">
+                        <span>
+                            Others
+                        </span>
+                        <ul class="sub-menu">
+                            <li><a href="">Sustainable Business</a></li>
+                            <li><a href="">Careers</a></li>
+                            <li><a href="">News And Media Center</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- Phone Menu -->
+            <div id='phone-menu'>
+                <ul>
+                    <li><a href="">Home</a></li>
+                    <li><a href="">What We Do</a></li>
+                    <li><a href="">About Us</a></li>
+                    <li><a href="">Contact Us</a></li>
+                    <li class="phone-sub-menu-container">
+                        <span>Others</span>
+                        <ul class="phone-sub-menu">
+                            <li><a href="">Sustainable Business</a></li>
+                            <li><a href="">Careers</a></li>
+                            <li><a href="">News And Media Center</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Carousel -->
+    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item">
+                <img src="./static/images/slide2.jpg" style="height: calc(100vh);" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="./static/images/slide3.jpg" style="height: calc(100vh);" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="./static/images/slide4.jpg" style="height: calc(100vh);" class="d-block w-100" alt="...">
+            </div>
+        </div>
+    </div>
+
+    <div class="container-lg mt-5">
+        <!-- About us -->
+        <div id="about-us" class="mb-5">
+            <h1 class="header">About Us</h1>
+            <div class="row mb-5">
+                <div class="col-md-7">
+                    <img width="100%" class="rounded border" src="./static/images/about-us-img.jpg" alt="">
+                </div>
+                <div class="col-md-5 lead mt-3 mt-md-0">
+                    We accelerate Ghana's effort of rapid industrialization by providing cost competitive natural gas and gas based products for domestic markets including the development of petrochemical industries, fertilizer and power generation, as well as export markets. <br>
+                    <button class="btn btn-2">Read More</button>
+                </div>
+            </div>
+            <div class="row">
+                <!-- Leadership -->
+                <div class="col-md-6 col-lg-4 mt-4">
+                    <div class="card shadow h-100">
+                        <div class="card-body p-5">
+                            <div class="text-center">
+                                <img src="./static/images/leadership.png" width="50px" alt="">
+                            </div>
+                            <h4 class="text-center text-dark mt-5 mb-5">Leadership</h4>
+                            <p class="text-muted">
+                                Hard work is at the heart of human progress, at the heart of the oil and gas industry, and both are at the heart of our business.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Working at Ghana Gas -->
+                <div class="col-md-6 col-lg-4 mt-4">
+                    <div class="card shadow h-100">
+                        <div class="card-body p-5">
+                            <div class="text-center">
+                                <img src="./static/images/working-with.png" width="50px" alt="">
+                            </div>
+                            <h4 class="text-center text-dark mt-5 mb-5">Working at Ghana Gas</h4>
+                            <p class="text-muted">
+                                We offer an environment where you remain true to your aspirations. <br>Our employees are our priority:
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- History -->
+                <div class="col-md-6 col-lg-4 mt-4">
+                    <div class="card shadow h-100">
+                        <div class="card-body p-5">
+                            <div class="text-center">
+                                <img src="./static/images/history.png" width="50px" alt="">
+                            </div>
+                            <h4 class="text-center text-dark mt-5 mb-5">History</h4>
+                            <p class="text-muted">
+                                The discovery of oil and gas reserves in the Jubilee Fields in 2007 signified a turning point in the developmental efforts of Ghana.                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- News -->
+        <div id="news-wrapper">
+            <h1 class="header">Latest News</h1>
+            <div class="row">
+                <div class="col-sm-6 col-md-4 col-lg-3 news">
+                    <div class="card shadow h-100 mr-4 ml-5 mr-sm-0 ml-sm-0">
+                        <img src="./static/images/news1.png" class="display-block" alt="">
+                        <div class="card-body">
+                            <p class=" badge badge-primary">News</p>
+                            <h4>GNGC celebrates International Women's Day</h4>
+                            <p class="text-muted small m-0 news-date">12th December, 2021</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3 news">
+                    <div class="card shadow h-100 mr-4 ml-5 mr-sm-0 ml-sm-0">
+                        <img src="./static/images/news2.png" class="display-block" alt="">
+                        <div class="card-body">
+                            <p class=" badge badge-primary">News</p>
+                            <h4>Ghana Gas Supports Olympian</h4>
+                            <p class="text-muted small m-0 news-date">12th December, 2021</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3 news">
+                    <div class="card shadow h-100 mr-4 ml-5 mr-sm-0 ml-sm-0">
+                        <img src="./static/images/news3.png" class="display-block" alt="">
+                        <div class="card-body">
+                            <p class=" badge badge-primary">News</p>
+                            <h4>Ghana Gas to commence supply of gas to Karpowership</h4>
+                            <p class="text-muted small m-0 news-date">12th December, 2021</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3 news">
+                    <div class="card shadow h-100 mr-4 ml-5 mr-sm-0 ml-sm-0">
+                        <img src="./static/images/news4.png" class="display-block" alt="">
+                        <div class="card-body">
+                            <p class=" badge badge-primary">News</p>
+                            <h4>Prez Akufo Addo commissions new Gas Complex</h4>
+                            <p class="text-muted small m-0 news-date">12th December, 2021</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- CEO's Message -->
+        <div id="ceo" class="mt-5">
+            <h1 class="header">CEO's Message</h1>
+            <div class="row align-items-center justify-content-center">
+                <div class="col-auto">
+                    <img src="./static/images/ceo.png" width="350px" style="border-radius: 10px;" class="border" alt="">
+                </div>
+                <div class="col-md  mt-md-0 mt-3">
+                    <p style="font-size: 25px;" class="text-dark m-0">
+                        "It is our passion to build a strong Ghanaian economy through a culture of robust business development, constant human capacity building as well as supporting our project-affected communities"
+                    </p>
+                    <p style="color: #f45a2b;">Dr. Ben K. D. Asante, CEO</p>
+                    <button class="btn btn-2">See Leadership</button>
+                    <button class="btn btn-2">Watch Our Documentary</button>
+                </div>
+            </div>
+        </div>
+     
+      <!-- Contact Us -->
+      <div  id="contact-us">
+          <div class="mb-5">
+            <h2 class="header">Contact Us</h2>
+            <div class="row no-gutters d-flex justify-content-center">
+               <!--Details-->
+                <div class="col-md-6 col-lg-4">
+                    <h4>Find Us At</h4>
+                    <p style = 'color:#f45a2b'>
+                        <img src="static/images/location2.svg" width="20px" alt="">
+                        225 Osibisa Close
+                        Airport West
+                        Accra
+                        P.O Box CT 3686
+                        Cantonment, Accra - Ghana
+                    </p>
+                    <h4>Call Us On</h4>
+                    <p style = 'color:#f45a2b'>
+                        <img src="static/images/phone2.svg" width = "20px" alt="">
+                        +233 (0) 302 744200
+                    </p>
+                    <p style = 'color:#f45a2b'>
+                        <img src="static/images/phone2.svg" width = "20px" alt="">
+                        +233 (0) 302 744229
+                    </p>
+                    <h4>Email Us</h4>
+                    <p style = 'color:#f45a2b'>
+                        <img src="static/images/email2.svg" width = "20px" alt="">
+                        media@ghanagas.com.gh
+                    </p>
+                </div>
+                <!-- Map -->
+                <div class="col-md-6 col-lg-8">
+                    <div id="map"></div>
+                </div>
+            </div>
+            <!-- Contact Form -->
+            <div class="row mt-5">
+                <div class="col-sm-6">
+                    <label for="id_telephone">Telephone</label>
+                    <input type="text" id="id_telephone" placeholder="Enter your telephone" class="form-control">
+                </div>
+                <div class="col-sm-6">
+                    <label for="id_email">Email</label>
+                    <input type="text" id="id_email" placeholder="Enter your email" class="form-control">
+                </div>
+                <div class="col-12 mt-3">
+                    <label for="id_message">Enter your message</label>
+                    <textarea id="id_message" cols="30" rows="10" placeholder="Type something..." class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-1">Send Message</button>
+            </div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <footer>
+        <div class="container-fluid">
+          <div class="row" style="padding-bottom: 10px">
+              <div class="col-12 col-sm-12 col-md-3 d-flex align-items-center justify-content-center mb-sm-4 mb-0">
+                  <img width="220px" src="static/images/logo.png" alt="">
+              </div>
+              <div class="col-12 col-sm-6 col-md-5 mb-3 mb-sm-0">
+                  <p class="footer-header">Welcome</p>
+                  <a href="#home">Home</a>
+                  <a href="#contact-us">Contact Us</a>
+                  <span>
+                     <img src="static/images/location.svg" width="20px;" alt="">&nbsp;
+                        225 Osibisa Close
+                        Airport West
+                        Accra
+                        P.O Box CT 3686
+                        Cantonment, Accra - Ghana
+                  </span>
+                  <span>
+                    <img src="static/images/email.svg" width="20px;" alt="">&nbsp;
+                        media@ghanagas.com.gh
+                  </span>
+                  <span>
+                     <img src="static/images/phone.svg" width="18px;" alt="">&nbsp;
+                        +233 (0) 302 744200
+                  </span>
+                  <span>
+                     <img src="static/images/phone.svg" width="18px;" alt="">&nbsp;
+                        +233 (0) 302 744229
+                  </span>
+              </div>
+              <div class="col-12 col-sm-6 col-md-4">
+                  <p class="footer-header">Other Links</p>
+                  <a href="">What We Do</a>
+                  <a href="">About Us</a>
+                  <a href="">Sustainable Business</a>
+                  <a href="">Careers</a>
+                  <a href="">News And Media Center</a>
+              </div>
+          </div>
+           <!-- Stark Tech Solution -->
+            <!-- <div style = 'background-color: #1b1b1b;' class="row">
+                <div class="col-sm-4">
+                    <p class="text-info m-sm-auto">Designed By: <span style="color: white">Stark Tech Solution</span></p>
+                </div>
+                <div class="col-sm-4">
+                    <p class="text-info text-sm-center text-left m-sm-auto">Email: <span style="color: white">starktechsolution8@gmail.com</span></p>
+                </div>
+                <div class="col-sm-4">
+                    <p class="text-info text-sm-right text-left m-sm-auto">Mobile: <span style="color: white">+233 271 815 776</span></p>
+                </div>
+            </div> -->
+        </div>
+    </footer>
+    <script>
+        function initMap() {
+            var location = {lat: 5.551091,lng: -0.196310};
+            var map = new google.maps.Map(
+                document.getElementById('map'),
+                {
+                    zoom: 18,
+                    center: location
+                }
+            );
+        }
+    </script>
+    <script defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJ9gCNqWvdzmY_c-Km-wKqJvEZy7nAv4U&callback=initMap"></script>
+    <script src="static/jquery-3.5.1.min.js"></script>
+    <script src="static/bootstrap.bundle.min.js"></script>
+    <script src="static/index.js"></script>
+</body>
+</html>
